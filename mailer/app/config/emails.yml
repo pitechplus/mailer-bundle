@@ -1,0 +1,3 @@
+demo_mail:
+    template: AppBundle:Email:demo_mail.html.twig
+    subject: subject.demo

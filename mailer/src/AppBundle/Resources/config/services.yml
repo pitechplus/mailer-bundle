@@ -1,0 +1,30 @@
+parameters:
+    mailer_app.yaml_mailer.config_file:  %kernel.root_dir%/config/emails.yml
+    mailer_app.yaml_mailer.default:
+        from: noreply@pitechplus.com
+        to:   adumitrache@pitechnologies.ro
+
+services:
+    mailer_app.email.subscriber:
+        class: AppBundle\Mailer\EventListener\MailSubscriber
+        arguments: [@mailer_app.email.resolver]
+        tags:
+            - { name: kernel.event_subscriber }
+    mailer_app.mailer:
+        class: AppBundle\Mailer\Mailer
+        arguments:
+            - @mailer
+            - @logger
+    mailer_app.provider.yaml_mailer:
+        class: AppBundle\Mailer\Provider\YamlMailerProvider
+        arguments:
+            - %mailer_app.yaml_mailer.config_file%
+            - @templating
+            - @translator
+            - %mailer_app.yaml_mailer.default%
+    mailer_app.mailer.provider: @mailer_app.provider.yaml_mailer
+    mailer_app.email.resolver:
+        class: AppBundle\Mailer\Resolver\EmailResolver
+        arguments:
+            - @mailer_app.mailer
+            - @mailer_app.mailer.provider
