@@ -1,0 +1,5 @@
+services:
+    pitech_mailer.provider.yaml:
+        class: Pitech\MailerBundle\Provider\YamlMailerProvider
+        arguments:
+            - @translator

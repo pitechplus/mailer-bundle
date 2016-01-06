@@ -1,0 +1,5 @@
+services:
+    pitech_mailer.mailer.swift:
+        class: Pitech\MailerBundle\Mailer\SwiftMailer
+        arguments:
+            - @mailer

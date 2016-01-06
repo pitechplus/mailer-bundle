@@ -1,0 +1,3 @@
+services:
+    pitech_mailer.parser.yaml:
+        class: Pitech\MailerBundle\Parser\YamlParser

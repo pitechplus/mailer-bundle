@@ -1,0 +1,5 @@
+services:
+    pitech_mailer.resolver.mail:
+        class: Pitech\MailerBundle\Resolver\MailResolver
+        arguments:
+            - %email_defaults%

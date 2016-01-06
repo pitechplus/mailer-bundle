@@ -1,0 +1,6 @@
+services:
+    pitech_mailer.subscriber.email:
+        class: Pitech\MailerBundle\EventListener\EventEmailSubscriber
+        arguments: [ @pitech_mailer.resolver.mail ]
+        tags:
+            - { name: kernel.event_subscriber }

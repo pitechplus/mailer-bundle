@@ -1,0 +1,6 @@
+default_email:
+    to: adumitrache@pitechnologies.ro
+    body: HELLO !
+    from: noreply@email.com
+    template: AppBundle:Email:default_email.html.twig
+    subject: E-MAIL SUBJECT

@@ -1,0 +1,6 @@
+parameters:
+    email_defaults:
+        to: to@email.com
+        from: from@email.com
+        subject: Default subject
+        body: Default content

@@ -1,0 +1,7 @@
+services:
+    pitech_mailer.logger.monolog:
+        class: Pitech\MailerBundle\Logger\MonologLogger
+        arguments:
+            - @logger
+        tags:
+            - { name: monolog.logger, channel: pitech_mailer }

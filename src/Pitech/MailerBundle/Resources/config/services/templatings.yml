@@ -1,0 +1,5 @@
+services:
+    pitech_mailer.templating.twig:
+        class: Pitech\MailerBundle\Templating\TwigTemplating
+        arguments:
+            - @templating
