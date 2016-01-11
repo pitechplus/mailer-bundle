@@ -2,7 +2,7 @@
 
 namespace Pitech\MailerBundle\Mailer;
 
-use Pitech\MailerBundle\Logger\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Pitech\MailerBundle\Model\MailMessageInterface;
 
 class SwiftMailer implements MailerInterface
@@ -56,12 +56,13 @@ class SwiftMailer implements MailerInterface
 
         try {
             $this->mailer->send($email);
-            $this->logger->logInfo(
+
+            $this->logger->info(
                 sprintf(self::INFO_LOG_MESSAGE, $message->getFrom(), $message->getTo(), $message->getSubject()),
                 [self::CONTEXT_LOG]
             );
         } catch (\Exception $exception) {
-            $this->logger->logError($exception->getMessage(), [self::CONTEXT_LOG]);
+            $this->logger->error($exception->getMessage(), [self::CONTEXT_LOG]);
         }
     }
 }

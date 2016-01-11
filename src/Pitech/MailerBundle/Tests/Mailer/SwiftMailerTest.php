@@ -25,7 +25,7 @@ class SwiftMailerTest extends BaseTest
         parent::setUp();
 
         $this->mailer = $this->prophesize('\Swift_Mailer');
-        $this->logger = $this->prophesize('Pitech\MailerBundle\Logger\LoggerInterface');
+        $this->logger = $this->prophesize('Psr\Log\LoggerInterface');
         $this->message = $this->prophesize('Pitech\MailerBundle\Model\MailMessageInterface');
 
         $this->class = new SwiftMailer($this->mailer->reveal(), $this->logger->reveal());
@@ -94,7 +94,7 @@ class SwiftMailerTest extends BaseTest
 
         $this
             ->logger
-            ->logInfo(sprintf(SwiftMailer::INFO_LOG_MESSAGE, $from, $to, $subject), ['SwiftMailer'])
+            ->info(sprintf(SwiftMailer::INFO_LOG_MESSAGE, $from, $to, $subject), ['SwiftMailer'])
             ->shouldBeCalledTimes(1);
 
         $this->class->sendMail($this->message->reveal());

@@ -69,23 +69,31 @@ class PitechMailerExtension extends Extension implements PrependExtensionInterfa
         }
 
         $container
-            ->getDefinition($config['mailer']['class'])
-            ->addArgument($container->getDefinition($config['logger']['class']));
+            ->getDefinition($config['mailer']['service'])
+            ->addArgument($container->getDefinition($config['logger']['service']));
 
-        if (!file_exists($config['provider']['file'])) {
+        if ($config['provider']['service'] == 'pitech_mailer.provider.yaml' &&
+            !file_exists($config['provider']['file'])) {
             throw new \Exception(sprintf("File %s doesn't exist.", $config['provider']['file']));
         }
 
+        if ($config['provider']['service'] == 'pitech_mailer.provider.yaml') {
+            $container
+                ->getDefinition($config['provider']['service'])
+                ->addArgument($config['provider']['file']);
+        }
+
         $container
-            ->getDefinition($config['provider']['class'])
-            ->addArgument($config['provider']['file'])
-            ->addArgument($container->getDefinition($config['parser']['class']))
+            ->getDefinition($config['provider']['service'])
+            ->addArgument($container->getDefinition($config['parser']['service']))
             ->addArgument($container->getDefinition($config['templating']['engine']))
             ->addArgument($config['translation_domain']);
 
         $container
             ->getDefinition('pitech_mailer.resolver.mail')
-            ->addArgument($container->getDefinition($config['mailer']['class']))
-            ->addArgument($container->getDefinition($config['provider']['class']));
+            ->addArgument($container->getDefinition($config['mailer']['service']))
+            ->addArgument($container->getDefinition($config['provider']['service']));
     }
+
+
 }

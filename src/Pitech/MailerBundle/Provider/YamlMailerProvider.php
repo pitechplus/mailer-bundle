@@ -21,6 +21,9 @@ class YamlMailerProvider implements MailerProviderInterface
      */
     protected $data;
 
+    /**
+     * @var string
+     */
     public $file;
 
     /**

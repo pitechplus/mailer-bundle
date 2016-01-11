@@ -1,7 +1,10 @@
 services:
-    pitech_mailer.logger.monolog:
-        class: Pitech\MailerBundle\Logger\MonologLogger
+    pitech_mailer.logger:
+        class: Pitech\MailerBundle\Logger\MailerLogger
         arguments:
-            - @logger
-        tags:
-            - { name: monolog.logger, channel: pitech_mailer }
+            - pitech_mailer
+            - [@pitech_mailer.logger.handler]
+
+    pitech_mailer.logger.handler:
+        class: Monolog\Handler\StreamHandler
+        arguments: [%kernel.logs_dir%/pitech_mailer.log]
